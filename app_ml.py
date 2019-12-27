@@ -14,7 +14,7 @@ UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)),'images/
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
 #loading the machine learning model
-model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_1208.pwf'))
+model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191214165952.pwf'))
 model.eval()
 
 with open('classes.txt', 'rb') as file:
