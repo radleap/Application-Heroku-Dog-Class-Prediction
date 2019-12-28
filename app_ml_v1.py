@@ -62,10 +62,7 @@ def upload():
     if request.method == 'POST':
         file = request.files['file'] #takes the name "file" from upload.html post form
         pred = use_CNN(file)
-        dog_filename =  '\\static\\dog_class_images\\' + pred.capitalize().replace(" ", "_") +'.jpg'
-        #return jsonify({'prediction': pred})
-        #return render_template('prediction.html', prediction_text = 'The dog class is {}'.format(pred), prediction_image = dog_filename)
-        return render_template('prediction.html', prediction_text = 'The dog class is {}'.format(pred), prediction_image = dog_filename)
+        return jsonify({'prediction': pred})
 
 if __name__ == "__main__":
     app.run(port = 4555, debug = True)

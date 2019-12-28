@@ -70,27 +70,18 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-2 sidenav">
-      <p><a href="#">Bark</a></p>
-      <p><a href="#">Bark</a></p>
-      <p><a href="google.com">Google</a></p>
+      <p><a href="radleap.com">Meow!</a></p>
+      <p><a href="#">Woof!</a></p>
+      <p><a href="#">Link</a></p>
     </div>
     <div class="col-sm-8 text-left"> 
-      <h1>File Uploader</h1>
-
-	<p>Upload an image to predict the dog it resembles!</p>
+      <h1>It Looks Like...</h1>
       <hr>
-	<form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
-  		<input type="file" name="file" multiple="">
-		<br>
-  		<input type="submit" value="Predict me">
-	</form>
-	<hr>
-      <p> In order to make a prediction, a deep learning model is used! In particular, a convolutional network based on the squeezenet algoritm, fine tuned for the last layers to select from 133 dog breeds/classes. The model was trained using the pytorch framework, maintaining accuracy of 67% on unseen test data. </p>
+	{{prediction_text}}
       <hr>
-      <h3>A Final Note!</h3>
-      <p>And away we go!</p>
+	<img class="img-responsive" img src = {{prediction_image}} alt="doggy">
     </div>
-      <div class="col-sm-2 sidenav">
+   <div class="col-sm-2 sidenav">
 	<div class="well">
         <img class="img-responsive" img src="static\test_dog.jpg" alt="doggy"
       </div>
