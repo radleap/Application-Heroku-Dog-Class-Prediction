@@ -17,7 +17,7 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191214165952.pwf'))
 model.eval()
 
-with open('classes.txt', 'rb') as file:
+with open('static\\classes.txt', 'rb') as file:
     classes = pickle.load(file)
 
 app = Flask(__name__)
