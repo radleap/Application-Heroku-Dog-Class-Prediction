@@ -67,5 +67,7 @@ def upload():
         #return render_template('prediction.html', prediction_text = 'The dog class is {}'.format(pred), prediction_image = dog_filename)
         return render_template('prediction.html', prediction_text = 'The dog class is {}'.format(pred), prediction_image = dog_filename)
 
+# if __name__ == "__main__": #needed to run locally
+#    app.run(port = 4555, debug = True) # hide this to run on Heroku?
 if __name__ == "__main__":
-    app.run(port = 4555, debug = True)
+    app.run()
