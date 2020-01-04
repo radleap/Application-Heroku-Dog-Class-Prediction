@@ -11,16 +11,22 @@ from torch.autograd import Variable
 import numpy as np
 import cv2 #added for facial recognition
 
-UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)),'images/')
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)),'images/') #where the images that are POST are stored
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-#loading the machine learning model
+#loading the SqueezeNet Model - main model for dog class prediction
 model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191214165952.pwf'))
 model.eval()
 
+#loading the SqueezeNet Model - only detects if a dog or not returning True/False
+model_detect_dog = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_dog_detector__SqueezeNet_20200104154936.pwf'))
+model_detect_dog.eval()
+
+# Loading the dog classes, 133 total, from a static file
 with open('static/classes.txt', 'rb') as file:
     classes = pickle.load(file)
 
+# Setting up the flask app
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = "supertopsecretprivatekeyoobooboo"
@@ -51,28 +57,39 @@ def image_loader(image_name):
     image = image.unsqueeze(0)
     return image
 
+# Human detection - uses opencv
 def face_detector(file):
     face_cascade = cv2.CascadeClassifier('static/haarcascades/haarcascade_frontalface_alt.xml') #face detection xml model
     img = Image.open(file)
     img = np.array(img)
-    #img = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2RGB)
-    #img = cv2.resize(img,(224,224))
-    #gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     gray = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2GRAY)
     faces = face_cascade.detectMultiScale(gray)
     return len(faces) > 0
 
-# applies image loaders, and the neural network to the image, returning the class name
+# Dog detection: - applies image loaders, and the neural network to the image, returning True/False if dog detector
+def dog_detector(img_path):
+    image = image_loader(img_path)
+    output = model_detect_dog(image) #use NN model_detect_dog
+    _, preds_tensor = torch.max(output,1)
+    preds = np.squeeze(preds_tensor.numpy())
+    if preds >= 151 and preds <=268: #uses knowledge of the ImageNet classes
+        x =True
+    else:
+        x = False
+    return x
+
+# Dog Class Prediction: applies image loaders, and the neural network to the image, returning the class name
 def use_CNN(img_path):
     image = image_loader(img_path)
     output = model(image) #use NN
     _, preds_tensor = torch.max(output,1)
     preds = np.squeeze(preds_tensor.numpy())
-    name = classes[preds.flat[0]] #labels contains the classes
+    name = classes[preds.flat[0]] #labels contains the classes, in static files
     return(name)
 
 # If the user uploads an image, this get the "POST" and applies the use_CNN (neural network to it)
 # This code uses the static files (static due to Heroku documentation) and the predicted class to return the predicted class image
+# The same POST is used by the squeezenet model to detect if a dog, and opencv to detect a human.
 @app.route('/upload', methods=['POST'])
 def upload():
     if request.method == 'POST':
@@ -80,20 +97,19 @@ def upload():
         pred = use_CNN(file)
         dog_filename =  '\\static\\dog_class_images\\' + pred.capitalize().replace(" ", "_") +'.jpg'
 
-        #face detection portion cv2 issue with same read code
-        # filestr = request.files['file'].read()
+        #dog detection squeezenet model application (true/false)
+        is_dog = dog_detector(file)
+
+        #face detection portion cv2 (true/false)
         is_human = face_detector(file) #checking for humans
 
-        #is_human = False
-        #return jsonify({'prediction': pred})
-        #return render_template('prediction.html', prediction_text = 'The dog class is {}'.format(pred), prediction_image = dog_filename)
-        if is_human:
+        # Logic returning text based on detecting a dog,  detecting a human, or neither.
+        if is_dog:
+            return render_template('prediction.html', prediction_text = 'A dog was detected! And, the predicted dog class is a {}!'.format(pred), prediction_image = dog_filename)
+        elif is_human:
             return render_template('prediction.html', prediction_text = 'A human was detected! But, this particular human looks more like a {}!'.format(pred), prediction_image = dog_filename)
         else:
-            #return render_template('prediction.html', prediction_text = 'file is {}'.format(type(file)), prediction_image = dog_filename)
-            return render_template('prediction.html', prediction_text = 'The predicted dog class is {}'.format(pred), prediction_image = dog_filename)
+            return render_template('prediction.html', prediction_text = 'Not sure what this creature is, but it looks like this dog breed {}. Suggest consulting the zoo.'.format(pred), prediction_image = dog_filename)
 
-# if __name__ == "__main__": #needed to run locally
-#    app.run(port = 4555, debug = True) # hide this to run on Heroku?
 if __name__ == "__main__":
     app.run()
