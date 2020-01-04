@@ -8,5 +8,8 @@ Pillow==6.2.1
 matplotlib==3.1.1
 numpy==1.17.4
 gunicorn==20.0.4
+libsm6
+libxext6
+libxrender-dev
 libopencv
 opencv-python
