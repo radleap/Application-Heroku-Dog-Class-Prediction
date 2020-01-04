@@ -6,6 +6,7 @@ import torch.nn as nn
 import torch
 import io
 import torchvision.transforms as transforms
+from torchvision import models #getting pretrained models
 from PIL import Image
 from torch.autograd import Variable
 import numpy as np
@@ -18,8 +19,9 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191214165952.pwf'))
 model.eval()
 
-#loading the SqueezeNet Model - only detects if a dog or not returning True/False
-model_detect_dog = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_dog_detector__SqueezeNet_20200104154936.pwf'))
+#loading the SqueezeNet Model - only detects if a dog or not returning True/False - loading pretrained from torchvision
+model_detect_dog = models.squeezenet1_0(pretrained=True)
+#model_detect_dog.load_state_dict(torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_dog_detector__SqueezeNet_20200104162742.pwf')))
 model_detect_dog.eval()
 
 # Loading the dog classes, 133 total, from a static file
