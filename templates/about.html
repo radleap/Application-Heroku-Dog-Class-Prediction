@@ -55,7 +55,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="https://whos-a-good-boy.herokuapp.com/">Home</a></li>
+        <li class="active"><a href='/'>Home</a></li>
         <li><a href='/about'>About</a></li>
         <li><a href="https://github.com/radleap/dog-vision">Github</a></li>
         <li><a href="https://www.radleap.com">Contact</a></li>
@@ -70,19 +70,14 @@
 <div class="container-fluid text-center">    
   <div class="row content">
     <div class="col-sm-8 text-left"> 
-      <h1>Who's A Good Boy?</h1>
-
-	<p>Upload an image to predict the dog it resembles!</p>
+      <h1>About The Application: Who Decides Who's A Good Boy?</h1>
       <hr>
-	<form method="POST" enctype="multipart/form-data" action="{{ url_for('upload') }}">
-  		<input type="file" name="file" multiple="">
-		<br>
-  		<input type="submit" value="Predict me">
-	</form>
-	<hr>
-      <p> This application uses deep learning behind the scences! To learn how this works, see the about page! </p>
+      <p>The application makes use of Heroku, an open source PaaS, with a Bootstrap framework. The CSS and HTML was customized for simplicity, but maintain the API between the various components. This is our scaffolding, with all documents maintained on Github.</p>
+      <p> Computer vision has been implemented in order to detect if a human face was in the image, via the opencv package. On the other hand to detect dogs, a pre-trained neural network (squeeznet) was loaded to predict if in the image. Both maintained ~95% accuracy or better with test images.</p>
+      <p> In order to make the overall dog class prediction, a deep learning model was used that took two days to train on CPU. Though many models were trained, this iteration was chosen due to performance, resource availability and operationalability (not too big)! In particular, a convolutional neural network based on the squeezenet algoritm, fine tuned for the last layers to select from 133 dog breeds/classes. The model was trained using the pytorch framework. </p>
+      <p> The selected model maintained an accuracy of 67% on unseen test data. To put this success into perspective, random chance would correctly select the dog breed less than 1% of attempts. This is pretty good!</p>
       <hr>
-      <h3>Have fun!</h3>
+      <h3>Thank you and hope you enjoyed!</h3>
     </div>
   </div>
 </div>

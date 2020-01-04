@@ -45,6 +45,11 @@ def index():
         # show the upload form
         return render_template('upload.html')
 
+@app.route('/about', methods=['GET', 'POST'])
+def about():
+    if request.method == 'GET':
+        return render_template('about.html')
+
 #image loader transforms the image to a format for the neural network to use (as had been trained), loads image, apply, returns new image
 def image_loader(image_name):
     transformer = transforms.Compose([transforms.Resize(256),
