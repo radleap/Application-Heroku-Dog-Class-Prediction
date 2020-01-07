@@ -25,12 +25,14 @@ ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 #     model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_MobileNet_CNN_Transfer_20191214165656.pwf'))
 #     model.eval()
 
-model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191212081002.pwf'))
-model.eval()
-
-# This model works fine on Heroku... testing the other
-# model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_MobileNet_CNN_Transfer_20191214165656.pwf'))
+# # this is the code that is failing # blocking for now - works locally but not of heroku? Not sure why...
+# model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191212081002.pwf'))
 # model.eval()
+
+
+#This is the MobileNetV2 model works fine on Heroku... testing the other
+model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_MobileNet_CNN_Transfer_20191214165656.pwf'))
+model.eval()
 
 #loading the SqueezeNet Model - only detects if a dog or not returning True/False - loading pretrained from torchvision
 model_detect_dog = models.squeezenet1_0(pretrained=True)
