@@ -51,17 +51,14 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Logo</a>
+      <a class="navbar-brand" href="#">Neural Network</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav">
         <li class="active"><a href='/'>Home</a></li>
         <li><a href='/about'>About</a></li>
         <li><a href="https://github.com/radleap/dog-vision">Github</a></li>
-        <li><a href="https://www.radleap.com">Contact</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        <li><a href="https://www.linkedin.com/in/benjamin-jacobson-29540559/">Contact</a></li>
       </ul>
     </div>
   </div>
@@ -72,11 +69,12 @@
     <div class="col-sm-8 text-left"> 
       <h1>About The Application: Who Decides Who's A Good Boy?</h1>
       <hr>
-      <p>The application makes use of Heroku, an open source PaaS, with a Bootstrap framework. The CSS and HTML was customized for simplicity, but maintain the API between the various components. This is our scaffolding, with all documents maintained on Github.</p>
-      <p> Computer vision has been implemented in order to detect if a human face was in the image, via the opencv package. On the other hand to detect dogs, a pre-trained neural network (squeeznet) was loaded to predict if in the image. Both maintained ~95% accuracy or better with test images.</p>
-      <p> In order to make the overall dog class prediction, a deep learning model was used that took two days to train on CPU. Though many models were trained, this iteration was chosen due to performance, resource availability and operationalability (not too big)! In particular, a convolutional neural network based on the squeezenet algoritm, fine tuned for the last layers to select from 133 dog breeds/classes. The model was trained using the pytorch framework. </p>
-      <p> The selected model maintained an accuracy of 67% on unseen test data. To put this success into perspective, random chance would correctly select the dog breed less than 1% of attempts. This is pretty good!</p>
-      <hr>
+      <p>The application makes use of Heroku, an open source PaaS, with a Bootstrap framework. The CSS and HTML was customized for simplicity, but maintain the connectivity between the various components. This is our scaffolding, with all documents maintained on Github.</p>
+      <p> Computer vision has been implemented in order to detect if a human face was in the image, via the opencv python package. On the other hand to detect dogs, a pre-trained neural network (SqueezNet) was loaded to predict if in the image. Both maintained ~95% accuracy or better with test images.</p>
+      <p> In order to make the overall dog class prediction, a deep learning model was used that took two days to train on CPU. Though many models were trained, this iteration was chosen due to performance, resource availability and operationalability (not too big)! In particular, a convolutional neural network based on the MobileNetV2 algoritm, fine tuned for the last layers to select from 133 dog breeds/classes. The model was trained using the pytorch framework. </p>
+      <p> The selected MobileNetV2 trained model maintained an accuracy of 82% on unseen test data. To put this success into perspective, random chance would correctly select the dog breed less than 1% of attempts. This is pretty good!</p>
+      <p> Afterward, to create a mixture of results, a SqueezeNet CNN was trained via transfer learning (small size as well) that had obtained an accuracy of 67%. In inference, the results were different than the MobilNetV2 model, and I thought funnier. So for entertainment value, the used model is randomly selected between the MobilNetV2 and SqueezeNet models with a 50/50 chance. Hope you have fun!
+<hr>
       <h3>Thank you and hope you enjoyed!</h3>
     </div>
   </div>

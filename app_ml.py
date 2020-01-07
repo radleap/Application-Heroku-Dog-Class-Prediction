@@ -15,9 +15,15 @@ import cv2 #added for facial recognition
 UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)),'images/') #where the images that are POST are stored
 ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif'}
 
-#loading the SqueezeNet Model - main model for dog class prediction
-model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191214165952.pwf'))
-model.eval()
+# Randomly selecting either the MobileV2 Model or SqueezeNet for added variation in results (why? more fun :)) 
+if np.random.random() >= 0.5:
+    #loading the SqueezeNet Model - main model for dog class prediction #uncomment if want
+    model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_Squeezenet_CNN_Transfer_20191212081002.pwf'))
+    model.eval()
+else:
+    # loading the MobileV2  Model - main model for dog class prediction
+    model = torch.load(os.path.join(os.path.dirname(os.path.abspath(__file__)),'model_MobileNet_CNN_Transfer_20191214165656.pwf'))
+    model.eval()
 
 #loading the SqueezeNet Model - only detects if a dog or not returning True/False - loading pretrained from torchvision
 model_detect_dog = models.squeezenet1_0(pretrained=True)
