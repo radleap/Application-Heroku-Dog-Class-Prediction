@@ -1,6 +1,5 @@
 ## Project: Dog Vision Convolutional Neural Network Prediction Application
-## Motivation
-   CNN for dog detection, build something fun, and practice new learnings
+
 ## Build Status: 
    Deployed at this link https://whos-a-good-boy.herokuapp.com/
 ## General Details
@@ -13,6 +12,8 @@ In order to make the overall dog class prediction, a deep learning model was use
 
 The selected MobileNetV2 trained model maintained an accuracy of 82% on unseen test data. To put this success into perspective, random chance would correctly select the dog breed less than 1% of attempts. This is pretty good!
 
+## Motivation
+   CNN for dog detection, build something fun, and practice new learnings
 
 ## License
 ### The MIT License (MIT)
