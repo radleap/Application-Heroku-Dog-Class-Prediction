@@ -1,5 +1,4 @@
-# Project Title 
-   Dog Vision Convolutional Neural Network Prediction Application
+## Project: Dog Vision Convolutional Neural Network Prediction Application
 ## Motivation
    CNN for dog detection, build something fun, and practice new learnings
 ## Build Status: 
