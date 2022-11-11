@@ -104,7 +104,7 @@ pyproj==2.4.1
 pyrsistent==0.15.6
 pyshp==2.1.0
 PySocks==1.7.1
-pyspark==2.4.3
+pyspark==3.2.2
 pystan==2.19.0.0
 pytest==5.0.1
 python-dateutil==2.8.1
